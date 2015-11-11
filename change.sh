@@ -9,5 +9,9 @@ file=`ls "$dir" | shuf -n 1`
 # Prepend it his directory for gsettings
 path="file://"$dir/$file
 
+# For Cron compatibility
+PID=$(pgrep gnome-session)
+export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
+
 # Magic :-))
 gsettings set org.gnome.desktop.background picture-uri $path
