@@ -4,10 +4,10 @@
 dir="/home/kocal/Images/Wallpapers/"
 
 # Pick a random file
-file=`ls "$dir" | shuf -n 1`
+file=`find "$dir" -type f | shuf -n 1`
 
 # Prepend it his directory for gsettings
-path="file://"$dir/$file
+path="file:///"$file
 
 # For Cron compatibility
 PID=$(pgrep gnome-session)
