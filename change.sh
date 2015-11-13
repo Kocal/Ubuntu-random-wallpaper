@@ -3,8 +3,17 @@
 # You can change this (Directory where wallpapers are located):
 dir="/home/kocal/Images/Wallpapers/"
 
-# Pick a random file
-file=`find "$dir" -type f | shuf -n 1`
+# Number of wallpapers which will be displayed
+wallpapers_count=3
+
+# Pick $wallpapers_count random file
+files=`find "$dir" -type f ! -path "*-appended.jpg" | shuf -n $wallpapers_count`
+
+# Generate filename
+file=$dir$(date +"%s")"-appended.jpg"
+
+# Append our $wallpaper_count wallpapers to a new one
+convert +append $files $file
 
 # Prepend it his directory for gsettings
 path="file:///"$file
